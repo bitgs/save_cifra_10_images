@@ -20,7 +20,7 @@ for i in range(5):
 img =  np.reshape(data,[-1,CHANNEL, WIDTH, HEIGHT])
 
 
-data_path = "D:\dataset\cifar-10-batches-py\jpeg/"
+data_path = "D:\dataset\cifar-10-batches-py\train_jpeg/"
 if not os.path.exists(data_path):
     os.makedirs(data_path)
 for i in range(img.shape[0]):
@@ -36,3 +36,40 @@ for i in range(img.shape[0]):
 
     name = "img-" + str(i) +"-"+ classification[labels[i]]+ ".png"
     rgb.save(data_path + name, "PNG")
+
+data = []
+labels=[]
+with open("D:\dataset\cifar-10-batches-py/test_batch",mode='rb') as file:
+    data_dict = pickle.load(file, encoding='bytes')
+    data+= list(data_dict[b'data'])
+    labels+= list(data_dict[b'labels'])
+img =  np.reshape(data,[-1,CHANNEL, WIDTH, HEIGHT])
+
+data_path = "D:\dataset\cifar-10-batches-py\\test_jpeg\\"   
+if not os.path.exists(data_path):
+    os.makedirs(data_path)
+for i in range(img.shape[0]):
+
+    r = img[i][0]
+    g = img[i][1]
+    b = img[i][2]
+
+    ir = Image.fromarray(r)
+    ig = Image.fromarray(g)
+    ib = Image.fromarray(b)
+    rgb = Image.merge("RGB", (ir, ig, ib))
+
+    name = "img-" + str(i) +"-"+ classification[labels[i]]+ ".png"
+    rgb.save(data_path + name, "PNG")
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
